@@ -1,0 +1,29 @@
+{
+    "name": "api",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "pretest": "bash reset_test_db.bash",
+        "test": "JWT_SECRET=only_for_test nyc --reporter=html --reporter=text --reporter=clover mocha --exit --timeout 10000",
+        "start": "NODE_ENV='prod' JWT_SECRET='only_for_test' nodemon server.js",
+        "eslint": "eslint server.js || true",
+        "production": "NODE_ENV='prod' nodemon server.js"
+    },
+    "author": "Nils Leandersson",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "jsonwebtoken": "^8.5.1",
+        "mongodb": "^3.4.0",
+        "ws": "^7.2.1"
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "chai-http": "^4.3.0",
+        "eslint": "^6.7.2",
+        "eslint-plugin-react": "^7.17.0",
+        "mocha": "^6.2.2",
+        "nyc": "^14.1.1"
+    }
+}
