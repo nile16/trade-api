@@ -6,6 +6,8 @@ build:
         mongodb: true
     nodes:
         coverage:
+            services:
+                mongo: 4
             tests:
                 override:
                     - command: npm test
