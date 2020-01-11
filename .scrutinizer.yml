@@ -2,10 +2,9 @@ checks:
     javascript: true
 
 build:
+    environment:
+        mongodb: true
     nodes:
-        my-node:
-           services:
-               mongo: 4
         analysis:
             tests:
                 override:
