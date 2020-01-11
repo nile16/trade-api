@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/nile16/trade-api.svg?branch=master)](https://travis-ci.com/nile16/trade-api)
+
+
 
 ##### Installation
 *npm install*
