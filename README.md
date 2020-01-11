@@ -106,3 +106,11 @@ Ditt repo har en CI-kedja och automatiserade tester med tillhörande badges för
 I din README skriver du ett stycke om CI-kedjan, vilka tjänster du valt och varför samt eventuella begränsningar i hur CI-kedjan kan hantera din applikation. Du gör en kort reflektion över din syn på den hjälpen liknande verktyg ger dig.
 
 Berätta om du är nöjd eller inte med de betyg som tjänsten för kodkvalitet ger dig.
+
+
+Scrutinizer är hopplöst skräp.
+Webbsidan hänger.
+Kodkvaliten blir dålig för scrutinizer tycker en enkel funktion "randPrice"
+på några rader är för komplex.
+Vidare tror scrutinizer att servern är en stor klass som borde brytas ner.
+Värdelöst skräp.

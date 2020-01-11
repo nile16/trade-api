@@ -3,6 +3,9 @@ checks:
 
 build:
     nodes:
+        my-node:
+           services:
+               mongo: 4
         analysis:
             tests:
                 override:
