@@ -89,8 +89,20 @@ i viss mån kan skickas direkt utan någon tolkning.
 
 ##### Krav 3
 
-Båda servrarna lyssnar på samma port.
+Skapa en realtids micro-service som hanterar priserna för dina säljobjekt. I din frontend ska denna micro-service användas för att grafisk representera priserna i realtid.
+
+I dina README beskriver du i ett eget stycke om hur du implementerade realtidsaspekten i din applikation. Du skriver också om vilken teknik/verktyg du valt för din implementation samt en kort reflektion av hur du tycker tekniken fungerar.
 
 ##### Krav 4
 
-tester
+I din README skriver du ett stycke om vilka verktyg du använt för din testsuite och om det är delar av applikationen som inte täcks av tester. Du reflekterar kort över hur dina teknikval fungerat för dig. Du reflekterar också över hur lätt/svårt det är att få kodtäckning på din applikation.
+
+Man kan köra hela din testsuite lokalt via npm test.
+
+Du har god kodtäckning i enhetstester och integrationstester på backend. Sträva efter 70% där det är rimligt, men se det som en riktlinje och inte ett hårt krav.
+
+Ditt repo har en CI-kedja och automatiserade tester med tillhörande badges för byggtjänst, kodtäckning och tjänst för kodkvalitet.
+
+I din README skriver du ett stycke om CI-kedjan, vilka tjänster du valt och varför samt eventuella begränsningar i hur CI-kedjan kan hantera din applikation. Du gör en kort reflektion över din syn på den hjälpen liknande verktyg ger dig.
+
+Berätta om du är nöjd eller inte med de betyg som tjänsten för kodkvalitet ger dig.
