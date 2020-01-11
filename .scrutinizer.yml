@@ -2,8 +2,6 @@ checks:
     javascript: true
 
 build:
-    environment:
-        mongodb: true
     nodes:
         coverage:
             services:
