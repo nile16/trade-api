@@ -354,10 +354,6 @@ const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
     ws.send(JSON.stringify(prices));
-
-    ws.on("error", (error) => {
-        //console.log(`Server error: ${error}`);
-    });
 });
 
 wss.broadcast = (data) => {
