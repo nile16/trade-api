@@ -2,7 +2,7 @@
 ##### Installation
 *npm install*
 
-##### Starta server
+##### Starta utvecklingsserver
 *npm start*
 
 ##### Kör tester
@@ -10,6 +10,9 @@
 
 ##### Linta Javascriptet
 *npm run eslint*
+
+##### Starta produktionsserver
+*npm run production*
 
 
 ##### Krav 1
