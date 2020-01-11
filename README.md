@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.com/nile16/trade-api.svg?branch=master)](https://travis-ci.com/nile16/trade-api)
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nile16/trade-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nile16/trade-api/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/nile16/trade-api/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/nile16/trade-api/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/nile16/trade-api/badges/build.png?b=master)](https://scrutinizer-ci.com/g/nile16/trade-api/build-status/master)
 
 ##### Installation
