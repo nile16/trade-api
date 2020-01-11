@@ -3,6 +3,10 @@ checks:
 
 build:
     nodes:
+        analysis:
+            tests:
+                override:
+                    - js-scrutinizer-run
         coverage:
             services:
                 mongo: 4
