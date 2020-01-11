@@ -122,7 +122,7 @@ const server = http.createServer((req, res) => {
 
                     users.find({ 'ema': postObj.ema }).toArray(function(err, docs) {
                         client.close();
-                        if (docs.length == 1) {
+                        if (docs.length === 1) {
                             bcrypt.compare(postObj.psw, docs[0].psw, function(err, valid) {
                                 if (valid) {
                                     const token = jwt.sign({ ema: postObj.ema }, secret);
@@ -280,7 +280,7 @@ const server = http.createServer((req, res) => {
 
                                         if (!Object.prototype.hasOwnProperty.call(prices, stk)) {
                                             err = "Stock is not listed";
-                                        } else if (isNaN(num) || num == 0) {
+                                        } else if (isNaN(num) || num === 0) {
                                             err = "Invalid number of shares";
                                         } else if (
                                             num < 0 &&
@@ -356,7 +356,7 @@ wss.on('connection', (ws) => {
     ws.send(JSON.stringify(prices));
 
     ws.on("error", (error) => {
-        console.log(`Server error: ${error}`);
+        //console.log(`Server error: ${error}`);
     });
 });
 
