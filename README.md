@@ -90,28 +90,41 @@ i viss mån kan skickas direkt utan någon tolkning.
 
 ##### Krav 3
 
-Skapa en realtids micro-service som hanterar priserna för dina säljobjekt. I din frontend ska denna micro-service användas för att grafisk representera priserna i realtid.
+För realtidsaspekten gjorde jag en webbsocket broadcasting-server.
+När en klient ansluts skickas priserna direkt till den.
+I övrigt har servern bara en metod som skickar priserna till alla anslutna
+klienter.
+Priserna är sparade i ett objekt som nyckel-värde-par där varje nyckel är en aktie
+och värdet är dess pris.
+Var tionde sekund itereras priserna och varje pris ändras lite slumpvis och
+skickas sedan ut till alla anslutna klienter med broadcasting metoden.
 
-I dina README beskriver du i ett eget stycke om hur du implementerade realtidsaspekten i din applikation. Du skriver också om vilken teknik/verktyg du valt för din implementation samt en kort reflektion av hur du tycker tekniken fungerar.
+Tekniken fungerar bra men i detta fallet hade det varit bättre om klienten
+anropat servern och efterfrågat de senaste priserna istället.
+Då hade inte anslutningen behövt vara öppen hela tiden samt avbrott
+hade hanterats bättre.
 
 ##### Krav 4
 
-I din README skriver du ett stycke om vilka verktyg du använt för din testsuite och om det är delar av applikationen som inte täcks av tester. Du reflekterar kort över hur dina teknikval fungerat för dig. Du reflekterar också över hur lätt/svårt det är att få kodtäckning på din applikation.
+Verktygen som används är mocha, nyc, chai, chai-http och eslint.
+Jag valde dem för det var de vi använde i kursen och jag hade inget bättre
+förslag helt enkelt.
+Webbsocket-servern täcks inte av testerna.
+En del felkontroll täcks inte heller.
+Det är ganska lätt att få bra kodtäckning på den vanliga servern men på
+webbsocket-servern är det värre.
+Jag hittade inte något bra sätt att lösa det på.
+I övrigt fungerar det ganska bra tekniskt.
 
-Man kan köra hela din testsuite lokalt via npm test.
+För CI-kedjan har jag både Travis och Scrutinizer.
+Både Travis och Scrutinizer testar att bygga projektet och köra testerna.
+Jag tycker inte dessa tjänster hjälper mycket, man kan lika gärna köra testerna
+lokalt.
+Möjligtvis kan de vara till nytta för att varna om någon utvecklare envisas med
+att pusha upp sådant som inte fungerar.
 
-Du har god kodtäckning i enhetstester och integrationstester på backend. Sträva efter 70% där det är rimligt, men se det som en riktlinje och inte ett hårt krav.
-
-Ditt repo har en CI-kedja och automatiserade tester med tillhörande badges för byggtjänst, kodtäckning och tjänst för kodkvalitet.
-
-I din README skriver du ett stycke om CI-kedjan, vilka tjänster du valt och varför samt eventuella begränsningar i hur CI-kedjan kan hantera din applikation. Du gör en kort reflektion över din syn på den hjälpen liknande verktyg ger dig.
-
-Berätta om du är nöjd eller inte med de betyg som tjänsten för kodkvalitet ger dig.
-
-
-Scrutinizer är hopplöst skräp.
-Webbsidan hänger.
-Kodkvaliten blir dålig för scrutinizer tycker en enkel funktion "randPrice"
-på några rader är för komplex.
-Vidare tror scrutinizer att servern är en stor klass som borde brytas ner.
-Värdelöst skräp.
+Jag är inte nöjd med Scrutinizers betyg för kodkvalitet.
+Scrutinizer verka se hela min server som en enda komplicerad klass som borde
+brytas ner i mindre delar.
+Vidare tycker Scrutinizer att en enkel funktion, "randPrice", på några rader är för komplex.
+Enligt Scrutinizer innehåller funktionen på 5 rader varav en if-sats hela 67 "conditions".

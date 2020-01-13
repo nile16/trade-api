@@ -5,6 +5,7 @@
     "scripts": {
         "pretest": "bash reset_test_db.bash",
         "test": "JWT_SECRET=only_for_test nyc --reporter=html --reporter=text --reporter=clover mocha --exit --timeout 60000",
+        "posttest": "npm run eslint",
         "start": "NODE_ENV='prod' JWT_SECRET='only_for_test' nodemon server.js",
         "eslint": "eslint server.js || true",
         "production": "NODE_ENV='prod' node server.js"

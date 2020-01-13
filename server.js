@@ -1,4 +1,3 @@
-//const fs = require('fs');
 const http = require('http');
 const WebSocket = require('ws');
 const mongo = require("mongodb").MongoClient;
@@ -347,27 +346,29 @@ const server = http.createServer((req, res) => {
 });
 
 
-// cert: fs.readFileSync('/path/to/cert.pem'),
-// key: fs.readFileSync('/path/to/key.pem')
-
+// Websocket server
 const wss = new WebSocket.Server({ server });
 
+// On first connect, send prices
 wss.on('connection', (ws) => {
     ws.send(JSON.stringify(prices));
 });
 
-wss.broadcast = (data) => {
+// Method for broadcasting
+wss.broadcast = () => {
     wss.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
-            client.send(data);
+            client.send(JSON.stringify(prices));
         }
     });
 };
 
 
-/* Takes a price and add or substract a random value
-/  and then return the modified price.
-*/
+/** Randomize a price
+ *
+ * @param {float} price - old price
+ * @returns {float} - new price
+ */
 function randPrice(price) {
     price += Math.random() * 2 - 1;
     if (price < 0) {
@@ -376,11 +377,12 @@ function randPrice(price) {
     return Math.round(price * 100) / 100;
 }
 
+// Randomize all prices every 10 seconds and then broadcast new prices
 setInterval( () => {
     for (let key in prices) {
         prices[key] = randPrice(prices[key]);
     }
-    wss.broadcast(JSON.stringify(prices));
+    wss.broadcast();
 }, 10000);
 
 
