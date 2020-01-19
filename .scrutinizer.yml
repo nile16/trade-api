@@ -3,7 +3,7 @@ checks:
 
 build:
     environment:
-        node: v6.15.1
+        node: v8.14.0
     nodes:
         analysis:
             tests:
