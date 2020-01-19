@@ -252,6 +252,7 @@ const server = http.createServer((req, res) => {
                                             { $set: { bal: balance }},
                                             function(err, result) {
                                                 if (!err) {
+                                                    console.log("no error");
                                                     res.end(JSON.stringify({
                                                         err: false,
                                                         bal: balance

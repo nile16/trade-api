@@ -138,7 +138,6 @@ describe('API tests', () => {
                     chai.expect(res.headers).to.have.property('access-control-request-method', '*');
                     chai.expect(res.headers).to.have.property('access-control-allow-methods', 'POST');
                     chai.expect(res.headers).to.have.property('access-control-allow-headers', '*');
-                    console.log(res.body);
                     res.body.should.be.an("object");
                     chai.expect(res.body).to.have.property('err', false);
                     chai.expect(res.body).to.have.property('bal');
