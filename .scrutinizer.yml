@@ -2,6 +2,8 @@ checks:
     javascript: true
 
 build:
+    environment:
+        node: v8.14.0
     nodes:
         analysis:
             tests:
