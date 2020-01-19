@@ -11,7 +11,7 @@ build:
                     - js-scrutinizer-run
         coverage:
             services:
-                mongo: 3.6
+                mongo: latest
             tests:
                 override:
                     - command: npm test
