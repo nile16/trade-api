@@ -208,6 +208,10 @@ const server = http.createServer((req, res) => {
                 if (!postObj.amt) {
                     res.end(JSON.stringify({ err: 'Amount (amt) not specified' }));
                 }
+                res.end(JSON.stringify({
+                    err: false,
+                    bal: 7777
+                }));
 
                 // Verify and decode token.
                 jwt.verify(postObj.tok, secret, function(err, decoded) {
