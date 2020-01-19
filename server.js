@@ -237,6 +237,10 @@ const server = http.createServer((req, res) => {
                                         err = "Insufficent funds in account";
                                     }
 
+
+                                    res.end(JSON.stringify({ err: false, bal: 7777 }));
+
+
                                     // If no error calculate new balance
                                     if (!err) {
                                         if (type == "deposit") {
@@ -254,7 +258,7 @@ const server = http.createServer((req, res) => {
                                                 if (!err) {
                                                     res.end(JSON.stringify({
                                                         err: false,
-                                                        bal: 7777
+                                                        bal: balance
                                                     }));
                                                 } else {
                                                     res.end(JSON.stringify({
