@@ -225,7 +225,7 @@ const server = http.createServer((req, res) => {
                                 if (!err && docs.length) {
                                     let balance = docs[0].bal;
                                     let type = postObj.typ;
-                                    let amount = parseFloat(postObj.amt);
+                                    let amount = parseInt(postObj.amt);
                                     let err = false;
 
                                     // Check for errors in request parameters.
