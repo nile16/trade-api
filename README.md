@@ -89,6 +89,7 @@ i viss mån kan skickas direkt utan någon tolkning.
 
 För realtidsaspekten gjorde jag en webbsocket broadcasting-server som
 periodvis skickar en lista med aktiekurser till alla klienter.
+
 Priserna är sparade i ett objekt som innehåller nyckel-värde-par där varje
 nyckel är en aktiesymbol och värdet är dess pris.
 Var tionde sekund itereras priserna och varje pris ändras lite slumpvis och
