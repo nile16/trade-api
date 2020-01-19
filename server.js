@@ -248,10 +248,9 @@ const server = http.createServer((req, res) => {
 
                                         // Write new balance to data base and respond
                                         // with new balance.
-                                        users.updateOne({ 'ema': decoded.ema },
+                                        users.updateOne({ 'ema': 'nils@bth.se' },
                                             { $set: { bal: balance }},
-                                            function(err, result) {
-                                                //res.end(JSON.stringify({ err: err }));
+                                            function(err) {
                                                 if (!err) {
                                                     res.end(JSON.stringify({
                                                         err: false,
@@ -356,7 +355,7 @@ const server = http.createServer((req, res) => {
                                                 'ema': decoded.ema
                                             },
                                             { $set: { bal: bal, shr: prt }},
-                                            function(err, result) {
+                                            function(err) {
                                                 if (!err) {
                                                     res.end(JSON.stringify({
                                                         err: false,
@@ -365,7 +364,7 @@ const server = http.createServer((req, res) => {
                                                     }));
                                                 } else {
                                                     res.end(JSON.stringify({
-                                                        err: result,
+                                                        err: err,
                                                     }));
                                                 }
                                             });
