@@ -251,7 +251,7 @@ const server = http.createServer((req, res) => {
                                         users.updateOne({ 'ema': decoded.ema },
                                             { $set: { bal: balance }},
                                             function(err, result) {
-                                                //res.end(JSON.stringify({ err: false, bal: 7777, error: err }));
+                                                res.end(JSON.stringify({ err: true, bal: 7777, error: err }));
                                                 if (!err) {
                                                     res.end(JSON.stringify({
                                                         err: false,
