@@ -246,12 +246,12 @@ const server = http.createServer((req, res) => {
                                         }
                                         balance = Math.round(balance * 100) / 100;
 
-                                        res.end(JSON.stringify({ err: false, bal: 7777, error: err }));
                                         // Write new balance to data base and respond
                                         // with new balance.
                                         users.updateOne({ 'ema': decoded.ema },
                                             { $set: { bal: balance }},
                                             function(err, result) {
+                                                res.end(JSON.stringify({ err: false, bal: 7777, error: err }));
                                                 if (!err) {
                                                     res.end(JSON.stringify({
                                                         err: false,
