@@ -87,14 +87,12 @@ i viss mån kan skickas direkt utan någon tolkning.
 
 ##### Krav 3
 
-För realtidsaspekten gjorde jag en webbsocket broadcasting-server.
-När en klient ansluts skickas priserna direkt till den.
-I övrigt har servern bara en metod som skickar priserna till alla anslutna
-klienter.
-Priserna är sparade i ett objekt som nyckel-värde-par där varje nyckel är en aktie
-och värdet är dess pris.
+För realtidsaspekten gjorde jag en webbsocket broadcasting-server som
+periodvis skickar en lista med aktiekurser till alla klienter.
+Priserna är sparade i ett objekt som innehåller nyckel-värde-par där varje
+nyckel är en aktiesymbol och värdet är dess pris.
 Var tionde sekund itereras priserna och varje pris ändras lite slumpvis och
-skickas sedan ut till alla anslutna klienter med broadcasting metoden.
+skickas sedan ut till alla anslutna klienter med en broadcasting-metod.
 
 Tekniken fungerar bra men i detta fallet hade det varit bättre om klienten
 anropat servern och efterfrågat de senaste priserna istället.
@@ -104,7 +102,7 @@ hade hanterats bättre.
 ##### Krav 4
 
 Verktygen som används är mocha, nyc, chai, chai-http och eslint.
-Jag valde dem för det var de vi använde i kursen och jag hade inget bättre
+Jag valde de för vi använde dem i kursen och jag hade inget bättre
 förslag helt enkelt.
 Webbsocket-servern täcks inte av testerna.
 En del felkontroll täcks inte heller.
@@ -124,6 +122,6 @@ Jag är inte nöjd med Scrutinizers betyg för kodkvalitet.
 Scrutinizer verka se hela min server som en enda komplicerad klass som borde
 brytas ner i mindre delar.
 Vidare tycker Scrutinizer att en enkel funktion, "randPrice", på några rader är för komplex.
-Enligt Scrutinizer innehåller funktionen på 5 rader varav en if-sats hela 67 "conditions".
+Enligt Scrutinizer innehåller funktionen på 5 rader hela 67 "conditions".
 Hade betyget varit mer förutsägbart hade jag nog försökt skriva om koden för ett
 finare betyg men som det är nu känns det meningslöst så det får vara.
