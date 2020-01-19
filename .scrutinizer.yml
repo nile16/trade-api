@@ -3,8 +3,7 @@ checks:
 
 build:
     environment:
-        node: v8.14.0
-        mongodb: true
+        node: v10.14.2
     nodes:
         analysis:
             tests:
