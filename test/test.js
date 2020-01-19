@@ -129,7 +129,7 @@ describe('API tests', () => {
                     'cmd': 'tra',
                     'tok': token,
                     'typ': 'deposit',
-                    'amt': 10000
+                    'amt': '10000'
                 })
                 .end((err, res) => {
                     res.should.have.status(200);
