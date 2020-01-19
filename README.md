@@ -35,7 +35,7 @@ var att ladda om hela sidan med hjälp av `<form>`-taggen.
 Istället görs alla anrop till API:et som POST med rå JSON.
 Alla svar från API:et returneras också som rå JSON.
 Det blir ett enkelt men samtidigt mycket kraftfullt sätt att kommunisera.
-Anropen till servern har formen av kommando plus parametrar, egendomen 'cmd'
+Anropen till servern har formen av ett kommando plus parametrar, egendomen 'cmd'
 är kommandot och ska finnas med i varje anrop.
 
 Ett anrop för inloggning kan se ut så här:
@@ -71,18 +71,15 @@ Vilket kan ge ett svar så här:
 
 ```
 Content-Type: application/json`
-CORS headers
-{"err": false, "bal": 239.94, "shr": { "BTH": 4, "ABB": 2, "OPEL": 5 }}
+<CORS headers>
+{ "err": false, "bal": 239.94, "shr": { "BTH": 4, "ABB": 2, "OPEL": 5 } }
 ```
-
-Denna server gör tre saker. Registrerar nya användare, returnerar en token
-vid inloggning och sparar användardata.
 
 Som databas valde jag MongoDB.
 Valet föll på MongoDB främst för dess programatiska API.
 SQL är designat för att en operatör ska kunna skriva in förfrågningar som
 strängar via en terminal vilket är ålderdomligt och omständigt att göra programatiskt.
-Ett annan anledning är att det är en dokumentbaserad databas vilken sparar
+En annan anledning är att det är en dokumentbaserad databas vilken sparar
 data i JSON form som API:et mot klienten arbetar med vilket gör att data
 i viss mån kan skickas direkt utan någon tolkning.
 
@@ -128,3 +125,5 @@ Scrutinizer verka se hela min server som en enda komplicerad klass som borde
 brytas ner i mindre delar.
 Vidare tycker Scrutinizer att en enkel funktion, "randPrice", på några rader är för komplex.
 Enligt Scrutinizer innehåller funktionen på 5 rader varav en if-sats hela 67 "conditions".
+Hade betyget varit mer förutsägbart hade jag nog försökt skriva om koden för ett
+finare betyg men som det är nu känns det meningslöst så det får vara.

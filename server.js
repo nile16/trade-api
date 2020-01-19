@@ -30,7 +30,7 @@ const server = http.createServer((req, res) => {
     let body = '';
     let postObj = {};
 
-    // CORS headers are sent with every request
+    // CORS headers and content type are sent with every request
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Access-Control-Allow-Origin',   '*');
     res.setHeader('Access-Control-Request-Method', '*');
@@ -49,6 +49,7 @@ const server = http.createServer((req, res) => {
     req.on('data', (data) => {
         body += data;
     });
+
     req.on('end', () => {
         try {
             postObj = JSON.parse(body);
@@ -61,7 +62,9 @@ const server = http.createServer((req, res) => {
         }
 
         switch (postObj.cmd) {
+            // *** Register a new user ***
             case 'reg':
+                // Make sure parameters for name, email and password were included in the request
                 if (!postObj.nam) {
                     res.end(JSON.stringify({err: 'Name (nam) not specified'}));
                 }
@@ -79,6 +82,11 @@ const server = http.createServer((req, res) => {
                     const db = client.db(dbName);
                     const users = db.collection('users');
 
+                    // Make sure desired email is not already in data base before
+                    // new user is inserted.
+                    // Save a hash of the desired password, user's name and email in data base.
+                    // The email is used as a unique id for the user.
+                    // An account balance of 0 and an empty collection of shares is also saved.
                     users.find({ 'ema': postObj.ema }).toArray(function(err, docs) {
                         if (!docs.length) {
                             bcrypt.hash(postObj.psw, saltRounds, function(err, hash) {
@@ -104,7 +112,9 @@ const server = http.createServer((req, res) => {
                 });
                 break;
 
+            // *** Login and retrive token ***
             case 'lin':
+                // Make sure parameters for email and password were included in the request
                 if (!postObj.ema) {
                     res.end(JSON.stringify({err: 'Email (ema) not specified'}));
                 }
@@ -119,6 +129,10 @@ const server = http.createServer((req, res) => {
                     const db = client.db(dbName);
                     const users = db.collection('users');
 
+                    // Find the user by email address and compare stored hashed password
+                    // to the password supplied in the login request.
+                    // If the supplied password was correct, respond with a signed token
+                    // containing the user's email address.
                     users.find({ 'ema': postObj.ema }).toArray(function(err, docs) {
                         client.close();
                         if (docs.length === 1) {
@@ -145,10 +159,14 @@ const server = http.createServer((req, res) => {
                 });
                 break;
 
+            // *** Fetch data for a user ***
             case 'dat':
+                // Make sure parameters for token was included in the request
                 if (!postObj.tok) {
-                    res.end(JSON.stringify({err: 'Token (tok) not specified'}));
+                    res.end(JSON.stringify({ err: 'Token (tok) not specified' }));
                 }
+
+                // Verify and decode token.
                 jwt.verify(postObj.tok, secret, function(err, decoded) {
                     if (!err) {
                         mongo.connect(mongoUrl, {
@@ -158,6 +176,8 @@ const server = http.createServer((req, res) => {
                             const db = client.db(dbName);
                             const users = db.collection('users');
 
+                            // Find the user's data by the email address from
+                            // the decoded token and respond with user's balance and shares.
                             users.find({ 'ema': decoded.ema }).toArray(function(err, docs) {
                                 client.close();
                                 res.end(JSON.stringify({
@@ -175,16 +195,21 @@ const server = http.createServer((req, res) => {
                 });
                 break;
 
+            // *** Execute a transfer of funds ***
             case 'tra':
+                // Make sure parameters for token, transfer type and amount
+                // were included in the request
                 if (!postObj.tok) {
-                    res.end(JSON.stringify({err: 'Token (tok) not specified'}));
+                    res.end(JSON.stringify({ err: 'Token (tok) not specified' }));
                 }
                 if (!postObj.typ) {
-                    res.end(JSON.stringify({err: 'Type (typ) not specified'}));
+                    res.end(JSON.stringify({ err: 'Type (typ) not specified' }));
                 }
                 if (!postObj.amt) {
-                    res.end(JSON.stringify({err: 'Amount (amt) not specified'}));
+                    res.end(JSON.stringify({ err: 'Amount (amt) not specified' }));
                 }
+
+                // Verify and decode token.
                 jwt.verify(postObj.tok, secret, function(err, decoded) {
                     if (!err) {
                         mongo.connect(mongoUrl, {
@@ -194,13 +219,16 @@ const server = http.createServer((req, res) => {
                             const db = client.db(dbName);
                             const users = db.collection('users');
 
+                            // Find the user's data by the email address from
+                            // the decoded token.
                             users.find({ 'ema': decoded.ema }).toArray(function(err, docs) {
                                 if (!err && docs.length) {
                                     let balance = docs[0].bal;
                                     let type = postObj.typ;
-                                    let amount = parseInt(postObj.amt);
+                                    let amount = parseFloat(postObj.amt);
                                     let err = false;
 
+                                    // Check for errors in request parameters.
                                     if (type != "deposit" && type != "withdraw") {
                                         err = "Type is not 'deposit' or 'withdraw'";
                                     } else if (isNaN(amount) || amount <= 0) {
@@ -208,6 +236,8 @@ const server = http.createServer((req, res) => {
                                     } else if (type == "withdraw" && amount > balance) {
                                         err = "Insufficent funds in account";
                                     }
+
+                                    // If no error calculate new balance
                                     if (!err) {
                                         if (type == "deposit") {
                                             balance += amount;
@@ -216,6 +246,8 @@ const server = http.createServer((req, res) => {
                                         }
                                         balance = Math.round(balance * 100) / 100;
 
+                                        // Write new balance to data base and respond
+                                        // with new balance.
                                         users.updateOne({ 'ema': decoded.ema },
                                             { $set: { bal: balance }},
                                             function(err, result) {
@@ -251,7 +283,10 @@ const server = http.createServer((req, res) => {
                 });
                 break;
 
+            // *** Execute a trade ***
             case 'trd':
+                // Make sure parameters for token, stock symbol, and number of shares
+                // were included in the request
                 if (!postObj.tok) {
                     res.end(JSON.stringify({err: 'Token (tok) not specified'}));
                 }
@@ -261,14 +296,18 @@ const server = http.createServer((req, res) => {
                 if (!postObj.num) {
                     res.end(JSON.stringify({err: 'Number of shares (num) not specified'}));
                 }
+
+                // Verify and decode token.
                 jwt.verify(postObj.tok, secret, function(err, decoded) {
                     if (!err) {
                         mongo.connect(mongoUrl,
-                            {useUnifiedTopology: true, useNewUrlParser: true },
+                            { useUnifiedTopology: true, useNewUrlParser: true },
                             function(err, client) {
                                 const db = client.db(dbName);
                                 const users = db.collection('users');
 
+                                // Find the user's data by the email address from
+                                // the decoded token.
                                 users.find({ 'ema': decoded.ema }).toArray(function(err, docs) {
                                     if (!err && docs.length) {
                                         let bal = docs[0].bal;
@@ -277,6 +316,7 @@ const server = http.createServer((req, res) => {
                                         let num = parseInt(postObj.num);
                                         let err = false;
 
+                                        // Check for errors in request parameters.
                                         if (!Object.prototype.hasOwnProperty.call(prices, stk)) {
                                             err = "Stock is not listed";
                                         } else if (isNaN(num) || num === 0) {
@@ -291,6 +331,9 @@ const server = http.createServer((req, res) => {
                                         } else if (num < 0 && (( prt[stk] + num ) < 0)) {
                                             err = "Insufficent shares in portfolio";
                                         }
+
+                                        // If no error calculate new balance
+                                        // and collection of shares.
                                         if (!err) {
                                             bal -= prices[stk] * num;
 
@@ -304,6 +347,10 @@ const server = http.createServer((req, res) => {
                                                     delete prt[stk];
                                                 }
                                             }
+
+                                            // Update data base with new balance
+                                            // and number of shares.
+                                            // Respond with new balance and shares.
                                             users.updateOne({
                                                 'ema': decoded.ema
                                             },
