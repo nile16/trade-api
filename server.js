@@ -217,7 +217,7 @@ const server = http.createServer((req, res) => {
                             useNewUrlParser: true
                         }, function(err, client) {
                             const db = client.db(dbName);
-                            var users = db.collection('users');
+                            const users = db.collection('users');
 
                             // Find the user's data by the email address from
                             // the decoded token.

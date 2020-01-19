@@ -4,6 +4,7 @@ checks:
 build:
     environment:
         node: v8.14.0
+        mongodb: true
     nodes:
         analysis:
             tests:
@@ -11,7 +12,7 @@ build:
                     - js-scrutinizer-run
         coverage:
             services:
-                mongo: latest
+                mongo: 4
             tests:
                 override:
                     - command: npm test
