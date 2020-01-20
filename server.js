@@ -248,7 +248,7 @@ const server = http.createServer((req, res) => {
 
                                         // Write new balance to data base and respond
                                         // with new balance.
-                                        users.update({ 'ema': decoded.ema },
+                                        users.updateMany({ 'ema': decoded.ema },
                                             { $set: { bal: balance }},
                                             function(err) {
                                                 if (!err) {
