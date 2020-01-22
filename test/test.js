@@ -146,107 +146,107 @@ describe('API tests', () => {
                 });
         });
 
-        it('200 Trade Buy', (done) => {
-            chai.request(server)
-                .post('/')
-                .send({
-                    'cmd': 'trd',
-                    'tok': token,
-                    'stk': 'BTH',
-                    'num': 1
-                })
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    chai.expect(res.headers).to.have.property('content-type', 'application/json');
-                    chai.expect(res.headers).to.have.property('access-control-allow-origin', '*');
-                    chai.expect(res.headers).to.have.property('access-control-request-method', '*');
-                    chai.expect(res.headers).to.have.property('access-control-allow-methods', 'POST');
-                    chai.expect(res.headers).to.have.property('access-control-allow-headers', '*');
-                    res.body.should.be.an("object");
-                    chai.expect(res.body).to.have.property('err', false);
-                    chai.expect(res.body).to.have.property('bal');
-                    chai.expect(res.body).to.have.property('shr');
-                    res.body.shr.should.be.an("object");
-                    done();
-                });
-        });
-
-        it('200 Get user Portfolio', (done) => {
-            chai.request(server)
-                .post('/')
-                .send({
-                    'cmd': 'dat',
-                    'tok': token
-                })
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    chai.expect(res.headers).to.have.property('content-type', 'application/json');
-                    chai.expect(res.headers).to.have.property('access-control-allow-origin', '*');
-                    chai.expect(res.headers).to.have.property('access-control-request-method', '*');
-                    chai.expect(res.headers).to.have.property('access-control-allow-methods', 'POST');
-                    chai.expect(res.headers).to.have.property('access-control-allow-headers', '*');
-                    res.body.should.be.an("object");
-                    chai.expect(res.body).to.have.property('err', false);
-                    chai.expect(res.body).to.have.property('bal');
-                    chai.expect(res.body).to.have.property('shr');
-                    res.body.shr.should.be.an("object");
-                    chai.expect(res.body.shr).to.have.property('BTH', 1);
-                    done();
-                });
-        });
-
-        it('200 Trade Sell', (done) => {
-            chai.request(server)
-                .post('/')
-                .send({
-                    'cmd': 'trd',
-                    'tok': token,
-                    'stk': 'BTH',
-                    'num': -1
-                })
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    chai.expect(res.headers).to.have.property('content-type', 'application/json');
-                    chai.expect(res.headers).to.have.property('access-control-allow-origin', '*');
-                    chai.expect(res.headers).to.have.property('access-control-request-method', '*');
-                    chai.expect(res.headers).to.have.property('access-control-allow-methods', 'POST');
-                    chai.expect(res.headers).to.have.property('access-control-allow-headers', '*');
-                    res.body.should.be.an("object");
-                    chai.expect(res.body).to.have.property('err', false);
-                    chai.expect(res.body).to.have.property('bal');
-                    chai.expect(res.body).to.have.property('shr');
-                    res.body.shr.should.be.an("object");
-                    try {
-                        balance = res.body.bal;
-                    } catch(err) {
-                        balance = 0;
-                    }
-                    done();
-                });
-        });
-
-        it('200 Transfer funds withdraw', (done) => {
-            chai.request(server)
-                .post('/')
-                .send({
-                    'cmd': 'tra',
-                    'tok': token,
-                    'typ': 'withdraw',
-                    'amt': balance
-                })
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    chai.expect(res.headers).to.have.property('content-type', 'application/json');
-                    chai.expect(res.headers).to.have.property('access-control-allow-origin', '*');
-                    chai.expect(res.headers).to.have.property('access-control-request-method', '*');
-                    chai.expect(res.headers).to.have.property('access-control-allow-methods', 'POST');
-                    chai.expect(res.headers).to.have.property('access-control-allow-headers', '*');
-                    res.body.should.be.an("object");
-                    chai.expect(res.body).to.have.property('err', false);
-                    chai.expect(res.body).to.have.property('bal');
-                    done();
-                });
-        });
+        // it('200 Trade Buy', (done) => {
+        //     chai.request(server)
+        //         .post('/')
+        //         .send({
+        //             'cmd': 'trd',
+        //             'tok': token,
+        //             'stk': 'BTH',
+        //             'num': 1
+        //         })
+        //         .end((err, res) => {
+        //             res.should.have.status(200);
+        //             chai.expect(res.headers).to.have.property('content-type', 'application/json');
+        //             chai.expect(res.headers).to.have.property('access-control-allow-origin', '*');
+        //             chai.expect(res.headers).to.have.property('access-control-request-method', '*');
+        //             chai.expect(res.headers).to.have.property('access-control-allow-methods', 'POST');
+        //             chai.expect(res.headers).to.have.property('access-control-allow-headers', '*');
+        //             res.body.should.be.an("object");
+        //             chai.expect(res.body).to.have.property('err', false);
+        //             chai.expect(res.body).to.have.property('bal');
+        //             chai.expect(res.body).to.have.property('shr');
+        //             res.body.shr.should.be.an("object");
+        //             done();
+        //         });
+        // });
+        //
+        // it('200 Get user Portfolio', (done) => {
+        //     chai.request(server)
+        //         .post('/')
+        //         .send({
+        //             'cmd': 'dat',
+        //             'tok': token
+        //         })
+        //         .end((err, res) => {
+        //             res.should.have.status(200);
+        //             chai.expect(res.headers).to.have.property('content-type', 'application/json');
+        //             chai.expect(res.headers).to.have.property('access-control-allow-origin', '*');
+        //             chai.expect(res.headers).to.have.property('access-control-request-method', '*');
+        //             chai.expect(res.headers).to.have.property('access-control-allow-methods', 'POST');
+        //             chai.expect(res.headers).to.have.property('access-control-allow-headers', '*');
+        //             res.body.should.be.an("object");
+        //             chai.expect(res.body).to.have.property('err', false);
+        //             chai.expect(res.body).to.have.property('bal');
+        //             chai.expect(res.body).to.have.property('shr');
+        //             res.body.shr.should.be.an("object");
+        //             chai.expect(res.body.shr).to.have.property('BTH', 1);
+        //             done();
+        //         });
+        // });
+        //
+        // it('200 Trade Sell', (done) => {
+        //     chai.request(server)
+        //         .post('/')
+        //         .send({
+        //             'cmd': 'trd',
+        //             'tok': token,
+        //             'stk': 'BTH',
+        //             'num': -1
+        //         })
+        //         .end((err, res) => {
+        //             res.should.have.status(200);
+        //             chai.expect(res.headers).to.have.property('content-type', 'application/json');
+        //             chai.expect(res.headers).to.have.property('access-control-allow-origin', '*');
+        //             chai.expect(res.headers).to.have.property('access-control-request-method', '*');
+        //             chai.expect(res.headers).to.have.property('access-control-allow-methods', 'POST');
+        //             chai.expect(res.headers).to.have.property('access-control-allow-headers', '*');
+        //             res.body.should.be.an("object");
+        //             chai.expect(res.body).to.have.property('err', false);
+        //             chai.expect(res.body).to.have.property('bal');
+        //             chai.expect(res.body).to.have.property('shr');
+        //             res.body.shr.should.be.an("object");
+        //             try {
+        //                 balance = res.body.bal;
+        //             } catch(err) {
+        //                 balance = 0;
+        //             }
+        //             done();
+        //         });
+        // });
+        //
+        // it('200 Transfer funds withdraw', (done) => {
+        //     chai.request(server)
+        //         .post('/')
+        //         .send({
+        //             'cmd': 'tra',
+        //             'tok': token,
+        //             'typ': 'withdraw',
+        //             'amt': balance
+        //         })
+        //         .end((err, res) => {
+        //             res.should.have.status(200);
+        //             chai.expect(res.headers).to.have.property('content-type', 'application/json');
+        //             chai.expect(res.headers).to.have.property('access-control-allow-origin', '*');
+        //             chai.expect(res.headers).to.have.property('access-control-request-method', '*');
+        //             chai.expect(res.headers).to.have.property('access-control-allow-methods', 'POST');
+        //             chai.expect(res.headers).to.have.property('access-control-allow-headers', '*');
+        //             res.body.should.be.an("object");
+        //             chai.expect(res.body).to.have.property('err', false);
+        //             chai.expect(res.body).to.have.property('bal');
+        //             done();
+        //         });
+        // });
 
     });
 });

@@ -116,11 +116,11 @@ För CI-kedjan har jag både Travis och Scrutinizer.
 Både Travis och Scrutinizer testar att bygga projektet och köra testerna.
 Jag tycker inte dessa tjänster hjälper mycket, man kan lika gärna köra testerna
 lokalt.
+Möjligtvis kan de vara till nytta för att varna om någon utvecklare envisas med
+att pusha upp sådant som inte fungerar.
 Scrutinizer är dessutom väldigt instablit.
 När jag pushade för vad jag trodde var sista gången slutade Scrutinizer fungera.
 Testerna fungerade lokalt och med Travis men inte med Scrutinizer.
-Möjligtvis kan de vara till nytta för att varna om någon utvecklare envisas med
-att pusha upp sådant som inte fungerar.
 
 Jag är inte nöjd med Scrutinizers betyg för kodkvalitet.
 Scrutinizer verka se hela min server som en enda komplicerad klass som borde
