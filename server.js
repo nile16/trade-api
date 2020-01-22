@@ -213,7 +213,6 @@ const server = http.createServer((req, res) => {
                 jwt.verify(postObj.tok, secret, function(err, decoded) {
                     if (!err) {
                         mongo.connect(mongoUrl, {
-                            useUnifiedTopology: true,
                             useNewUrlParser: true
                         }, function(err, client) {
                             const db = client.db(dbName);
@@ -301,7 +300,9 @@ const server = http.createServer((req, res) => {
                 jwt.verify(postObj.tok, secret, function(err, decoded) {
                     if (!err) {
                         mongo.connect(mongoUrl,
-                            { useUnifiedTopology: true, useNewUrlParser: true },
+                            {
+                                useNewUrlParser: true 
+                            },
                             function(err, client) {
                                 const db = client.db(dbName);
                                 const users = db.collection('users');
