@@ -5,6 +5,10 @@ build:
     environment:
         node: v8.14.0
     nodes:
+        analysis:
+            tests:
+                override:
+                    - js-scrutinizer-run
         coverage:
             services:
                 mongo: 4
