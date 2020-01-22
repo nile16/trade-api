@@ -301,7 +301,7 @@ const server = http.createServer((req, res) => {
                     if (!err) {
                         mongo.connect(mongoUrl,
                             {
-                                useNewUrlParser: true 
+                                useNewUrlParser: true
                             },
                             function(err, client) {
                                 const db = client.db(dbName);
